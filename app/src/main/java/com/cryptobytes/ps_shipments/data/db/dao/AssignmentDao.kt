@@ -1,4 +1,4 @@
-package com.cryptobytes.ps_shipments.data.dao
+package com.cryptobytes.ps_shipments.data.db.dao
 
 import androidx.room.*
 import com.cryptobytes.ps_shipments.data.model.Assignment
@@ -6,7 +6,8 @@ import kotlinx.coroutines.flow.Flow
 import java.time.LocalDate
 import java.time.LocalDateTime
 
-interface AssignmentsDao {
+@Dao
+interface AssignmentDao {
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     suspend fun insert(assignment: Assignment)
 
