@@ -29,12 +29,17 @@ class MainActivity : ComponentActivity() {
 
                     composable(NavigationDestination.DriversScreen.destination) {
                         val uiState by driversViewModel.collectWithLifecycle()
-                        DriverListScreen(navController = navController, assignments = uiState.assignments, driversViewModel::itemClicked)
+                        DriverListScreen(
+                            navController = navController,
+                            assignments = uiState.assignments,
+                            totalSS = uiState.totalSS,
+                            onItemClicked = driversViewModel::itemClicked
+                        )
                     }
 
                     composable(NavigationDestination.DriverDetailsScreen.destination) {
                         val uiState by driversViewModel.collectWithLifecycle()
-                        DriverDetailsScreen(uiState.selectedAssignment)
+                        DriverDetailsScreen(navController = navController, assignment = uiState.selectedAssignment)
                     }
                 }
             }

@@ -17,7 +17,8 @@ class DriversViewModel @Inject constructor(
 
     data class UiState(
         val selectedAssignment: Assignment? = null,
-        val assignments: List<Assignment> = listOf()
+        val assignments: List<Assignment> = listOf(),
+        val totalSS: Double = 0.0
     )
 
     sealed interface Event {
@@ -26,10 +27,12 @@ class DriversViewModel @Inject constructor(
 
     init {
         viewModelScope.launch {
+            assignmentRepository.syncRemoteToLocal()
             assignmentRepository.getAssignments().collect {
                 reduce { state ->
                     state.copy(
-                        assignments = it
+                        assignments = it,
+                        totalSS = it.sumOf { assignment -> assignment.ss }
                     )
                 }
             }
