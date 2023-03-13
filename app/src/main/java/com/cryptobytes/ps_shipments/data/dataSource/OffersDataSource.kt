@@ -34,7 +34,7 @@ class OffersDataSource {
                 "  ]\n" +
                 "}"
     }
-    fun fetchTodaysOffers(): Offers? {
-        return Gson().fromJson(JSON_DATA, Offers::class.java)
+    fun fetchTodaysOffers(jsonData: String = JSON_DATA): Offers? {
+        return Gson().fromJson(jsonData, Offers::class.java)
     }
 }

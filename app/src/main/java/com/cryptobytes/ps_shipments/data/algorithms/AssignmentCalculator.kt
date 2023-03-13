@@ -4,7 +4,7 @@ import com.cryptobytes.ps_shipments.data.model.Offers
 import com.cryptobytes.ps_shipments.data.suitablility_score.strategy.SuitabilityScoreStrategy
 import java.time.LocalDateTime
 
-class AssignmentMatrix(
+class AssignmentCalculator(
     private val offers: Offers,
 ) {
     private lateinit var matrix: Array<DoubleArray>
@@ -35,7 +35,7 @@ class AssignmentMatrix(
         }
     }
 
-    fun generateAssignments() : List<Assignment> {
+    fun generateAssignments(dateTime: LocalDateTime = LocalDateTime.now()) : List<Assignment> {
         val ha = HungarianAlgorithm(reversedMatrix)
         val assignment = ha.findOptimalAssignment()
         val assignments = mutableListOf<Assignment>()
@@ -46,7 +46,7 @@ class AssignmentMatrix(
                     driverName = offers.drivers.elementAt(assignment[i]!![0]),
                     destinationAddress = offers.shipments.elementAt(assignment[i]!![1]),
                     ss = matrix[assignment[i]!![0]][assignment[i]!![1]],
-                    date = LocalDateTime.now()
+                    date = dateTime
                 )
                 assignments.add(newAssignment)
                 print(newAssignment)

@@ -28,7 +28,7 @@ class DriversViewModel @Inject constructor(
     init {
         viewModelScope.launch {
             assignmentRepository.syncRemoteToLocal()
-            assignmentRepository.getAssignments().collect {
+            assignmentRepository.getAllForToday().collect {
                 reduce { state ->
                     state.copy(
                         assignments = it,

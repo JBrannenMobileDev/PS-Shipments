@@ -23,6 +23,9 @@ interface AssignmentDao {
         return deleteAllForDay(dayStart, dayEnd)
     }
 
+    @Query("DELETE FROM ${TableNames.TABLE_ASSIGNMENTS}")
+    fun deleteAll()
+
     @Query("DELETE FROM ${TableNames.TABLE_ASSIGNMENTS} WHERE date BETWEEN :dayStart AND :dayEnd")
     fun deleteAllForDay(dayStart: LocalDateTime, dayEnd: LocalDateTime)
 
@@ -34,4 +37,7 @@ interface AssignmentDao {
 
     @Query("SELECT * FROM ${TableNames.TABLE_ASSIGNMENTS} WHERE date BETWEEN :dayStart AND :dayEnd")
     fun getForDay(dayStart: LocalDateTime, dayEnd: LocalDateTime): Flow<List<Assignment>>
+
+    @Query("SELECT * FROM ${TableNames.TABLE_ASSIGNMENTS} WHERE id = :id")
+    fun getById(id: Int): Assignment
 }
